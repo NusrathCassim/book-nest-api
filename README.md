@@ -1,98 +1,190 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# BookNest API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A Booking Platform REST API built with NestJS, TypeORM, and PostgreSQL, allowing users to manage services and customer bookings with JWT-based authentication.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Overview
 
-## Description
+BookNest API is a backend service for a booking platform. Authenticated users (e.g. business staff) can manage services, while customers can create bookings without needing an account. The system enforces core business rules such as preventing bookings on non-existent services, blocking past-dated bookings, and preventing cancelled bookings from being marked as completed.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Tech Stack**
+- **Framework:** NestJS + TypeScript
+- **Database:** PostgreSQL
+- **ORM:** TypeORM (with migrations, no `synchronize`)
+- **Auth:** JWT (Passport) + bcrypt password hashing
+- **Validation:** class-validator / class-transformer
+- **Docs:** Postman Collection (see `/postman`)
 
-## Project setup
+---
+
+## Installation Steps
+
+**Prerequisites:** Node.js 20+, PostgreSQL 14+, npm
 
 ```bash
-$ npm install
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/book-nest-api.git
+cd book-nest-api
+
+# Install dependencies
+npm install
 ```
 
-## Compile and run the project
+---
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in your own values:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env
 ```
 
-## Run tests
+| Variable | Description | Example | To get One |
+|---|---|---|----|
+| `DB_HOST` | PostgreSQL host | `localhost` |
+| `DB_PORT` | PostgreSQL port | `5432` |
+| `DB_USERNAME` | PostgreSQL username | `postgres` |
+| `DB_PASSWORD` | PostgreSQL password | `yourpassword` |
+| `DB_NAME` | Database name | `booking_platform` |
+| `JWT_SECRET` | Secret key for signing JWTs | `your_super_secret_key` | node -e "console.log(require('crypto').randomBytes(64).toString('hex'))" |
+| `JWT_EXPIRES_IN` | JWT expiry duration | `1d` |
+| `PORT` | App port (optional) | `3000` |
+
+---
+
+## Database Setup
+
+Create the database in PostgreSQL:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+psql -U postgres -c "CREATE DATABASE booking_platform;"
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Running the Application
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Development (watch mode)
+npm run start:dev
+
+# Production build
+npm run build
+npm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The API will be available at `http://localhost:3000`.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## Running Migrations
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+To set up the database schema, run all existing migrations:
 
-## Support
+```bash
+npm run migration:run
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+This applies the migration files already included in `src/database/migrations/`, creating the `users`, `services`, and `bookings` tables.
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+<details>
+<summary>For developers: generating new migrations</summary>
 
-## License
+If you modify an entity and need to create a new migration:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+npm run migration:generate src/database/migrations/MigrationName
+```
+
+To undo the most recent migration:
+
+```bash
+npm run migration:revert
+```
+
+</details>
+
+## API Documentation
+
+A Postman Collection and Environment are provided in the `/postman` folder:
+
+- `postman/booknest-api.postman_collection.json`
+- `postman/booknest-api.postman_environment.json`
+
+**To use:**
+1. Import both files into Postman
+2. Select the **BookNest Local** environment
+3. Run **Auth → Register** to create a test user
+4. Run **Auth → Login** — this automatically saves your access token to the environment
+5. All other requests will use the saved token and IDs automatically
+
+### Endpoints Summary
+
+**Auth**
+| Method | Endpoint | Auth Required |
+|---|---|---|
+| POST | `/auth/register` | No |
+| POST | `/auth/login` | No |
+
+**Services**
+| Method | Endpoint | Auth Required |
+|---|---|---|
+| POST | `/services` | Yes |
+| GET | `/services` | No |
+| GET | `/services/:id` | No |
+| PATCH | `/services/:id` | Yes |
+| DELETE | `/services/:id` | Yes |
+
+**Bookings**
+| Method | Endpoint | Auth Required |
+|---|---|---|
+| POST | `/bookings` | No |
+| GET | `/bookings` (supports `?customerName=` search) | No |
+| GET | `/bookings/:id` | No |
+| PATCH | `/bookings/:id/status` |Yes |
+| PATCH | `/bookings/:id/cancel` | Yes |
+
+---
+
+## Assumptions Made
+
+- **Booking status enum**: The assignment lists `PENDING`, `CONFIRMED`, `CANCELLED`, but the business rule "cancelled bookings cannot be marked as completed" implies a `COMPLETED` status exists. Added `COMPLETED` to the enum accordingly.
+- **Authentication scope**: Only Service management (`Create`, `Update`, `Delete`) requires authentication, per the explicit rule "only authenticated users can manage services." `Get All Services` / `Get Service by ID` are left public since the assignment doesn't restrict read access. All Booking endpoints are public, per "customers can create bookings without authentication" — this was extended to all booking endpoints since no distinction was specified for read/update actions.
+- **Primary keys**: Used UUIDs instead of auto-increment integers to avoid exposing sequential, guessable IDs on publicly-accessible endpoints (e.g. booking creation).
+- **Service deletion**: A service cannot be deleted while it has existing bookings (enforced via a `RESTRICT` foreign key constraint), returning a `409 Conflict` instead of silently orphaning bookings.
+- **Cancel Booking endpoint**: Implemented as a dedicated `PATCH /bookings/:id/cancel` route in addition to the generic `PATCH /bookings/:id/status`, since "Cancel Booking" is listed as its own required API.
+
+---
+
+## Bonus Features Implemented
+
+- [x] Validation (class-validator DTOs + global ValidationPipe)
+- [x] Search bookings (by `customerName`, case-insensitive)
+- [x] Prevent duplicate bookings for the same service, date, and time
+- [x] Filter by status
+- [x] Global Exception Handling
+- [ ] Pagination
+- [ ] Swagger documentation
+- [ ] Docker support
+- [ ] Refresh Token
+- [ ] Unit Testing
+
+
+---
+
+## Project Structure
+
+```
+src/
+  auth/              # Register, Login, JWT strategy & guard
+  users/             # User entity
+  services/          # Service CRUD (protected write, public read)
+  bookings/          # Booking CRUD + business rules
+  common/enums/       # BookingStatus enum
+  database/          # TypeORM DataSource + migrations
+  app.module.ts
+  main.ts
+postman/             # Postman collection + environment
+```
