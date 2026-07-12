@@ -1,6 +1,6 @@
 $kind: http-request
 name: Cancel Booking
-url: "{{baseUrl}}/bookings/{{bookingId}}"
+url: "{{baseUrl}}/bookings/{{bookingId}}/cancel"
 method: PATCH
 body:
   type: json
@@ -9,4 +9,4 @@ auth:
   type: bearer
   credentials:
     token: "{{accessToken}}"
-order: 4496267540323506
+order: 7000

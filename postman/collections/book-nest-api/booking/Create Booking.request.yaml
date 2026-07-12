@@ -6,15 +6,15 @@ body:
   type: json
   content: "{\r
 
-    \  \"customerName\": \"Kamal Perera\",\r
+    \  \"customerName\": \"amna yasmin\",\r
 
-    \  \"customerEmail\": \"kamal@example.com\",\r
+    \  \"customerEmail\": \"amna@gmail.com\",\r
 
-    \  \"customerPhone\": \"0771234567\",\r
+    \  \"customerPhone\": \"0771237767\",\r
 
     \  \"serviceId\": \"{{serviceId}}\",\r
 
-    \  \"bookingDate\": \"2026-08-15\",\r
+    \  \"bookingDate\": \"2026-07-20\",\r
 
     \  \"bookingTime\": \"14:30\",\r
 
@@ -27,4 +27,4 @@ scripts:
 
       pm.environment.set(\"bookingId\", response.id);"
     language: text/javascript
-order: 1783829509586
+order: 1000

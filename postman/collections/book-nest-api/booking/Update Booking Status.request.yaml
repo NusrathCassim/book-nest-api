@@ -1,6 +1,6 @@
 $kind: http-request
 name: Update Booking Status
-url: "{{baseUrl}}/bookings/{{bookingId}}"
+url: "{{baseUrl}}/bookings/{{bookingId}}/status"
 method: PATCH
 body:
   type: json
@@ -9,4 +9,4 @@ auth:
   type: bearer
   credentials:
     token: "{{accessToken}}"
-order: 4458840621037766
+order: 6000

@@ -2,4 +2,4 @@ $kind: http-request
 name: Get All Bookings
 url: "{{baseUrl}}/bookings"
 method: GET
-order: 581046809179454
+order: 2000

@@ -31,12 +31,12 @@ export class BookingsController {
     return this.bookingsService.getBookingById(id);
   }
 
-  @Patch(':id')
+  @Patch(':id/status')
   update(@Param('id') id: string, @Body() dto: UpdateBookingStatusDto) {
     return this.bookingsService.update(id, dto);
   }
 
-  @Delete(':id')
+  @Patch(':id/cancel')
   remove(@Param('id') id: string) {
     return this.bookingsService.cancel(id);
   }
