@@ -1,0 +1,12 @@
+$kind: http-request
+name: Cancel Booking
+url: "{{baseUrl}}/bookings/{{bookingId}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r\n  \"status\": \"CANCELLED\"\r\n}"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 4496267540323506
