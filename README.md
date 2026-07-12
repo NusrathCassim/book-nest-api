@@ -143,8 +143,8 @@ A Postman Collection and Environment are provided in the `/postman` folder:
 | POST | `/bookings` | No |
 | GET | `/bookings` (supports `?customerName=` search) | No |
 | GET | `/bookings/:id` | No |
-| PATCH | `/bookings/:id` |Yes |
-| PATCH | `/bookings/:id` | Yes |
+| PATCH | `/bookings/:id/status` |Yes |
+| PATCH | `/bookings/:id/cancel` | Yes |
 
 ---
 
