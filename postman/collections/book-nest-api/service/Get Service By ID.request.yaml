@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Service By ID
+url: "{{baseUrl}}/services/{{serviceId}}"
+method: GET
+order: 2644779789721495

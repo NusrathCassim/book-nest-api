@@ -1,0 +1,12 @@
+$kind: http-request
+name: Update Booking Status
+url: "{{baseUrl}}/bookings/{{bookingId}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r\n  \"status\": \"CONFIRMED\"\r\n}"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 4458840621037766

@@ -1,0 +1,12 @@
+$kind: http-request
+name: Update Service
+url: "{{baseUrl}}/services/{{serviceId}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r\n  \"price\": 18000\r\n}"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 3601545185534083

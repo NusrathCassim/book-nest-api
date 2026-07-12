@@ -1,0 +1,7 @@
+$kind: http-request
+name: Search Bookings by Name
+url: "{{baseUrl}}/bookings?customerName=kamal"
+method: GET
+queryParams:
+  customerName: kamal
+order: 2838741870761739

@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create Booking
+url: "{{baseUrl}}/bookings"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"customerName\": \"Kamal Perera\",\r
+
+    \  \"customerEmail\": \"kamal@example.com\",\r
+
+    \  \"customerPhone\": \"0771234567\",\r
+
+    \  \"serviceId\": \"{{serviceId}}\",\r
+
+    \  \"bookingDate\": \"2026-08-15\",\r
+
+    \  \"bookingTime\": \"14:30\",\r
+
+    \  \"notes\": \"test customer\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "const response = pm.response.json();\r
+
+      pm.environment.set(\"bookingId\", response.id);"
+    language: text/javascript
+order: 1783829509586

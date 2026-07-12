@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create Service
+url: "{{baseUrl}}/services"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"title\": \"HairColor - Brown\",\r
+
+    \  \"description\": \"Basic hair color service\",\r
+
+    \  \"duration\": 120,\r
+
+    \  \"price\": 15000,\r
+
+    \  \"isActive\": true\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: "const response = pm.response.json();\r
+
+      pm.environment.set(\"serviceId\", response.id);"
+    language: text/javascript
+order: 1783828945216

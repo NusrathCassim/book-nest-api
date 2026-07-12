@@ -1,0 +1,9 @@
+$kind: http-request
+name: Delete Service
+url: "{{baseUrl}}/services/{{serviceId}}"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 4436879078808955

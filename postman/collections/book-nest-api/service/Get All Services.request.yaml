@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get All Services
+url: "{{baseUrl}}/services"
+method: GET
+order: 1516895406766306
