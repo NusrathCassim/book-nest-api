@@ -1,0 +1,9 @@
+$kind: http-request
+name: Search Bookings by Status
+url: "{{baseUrl}}/bookings?status=CANCELLED"
+method: GET
+queryParams:
+  - key: status
+    value: CANCELLED
+    disabled: true
+order: 4000

@@ -3,6 +3,7 @@ import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { UpdateBookingStatusDto } from './dto/update-booking-status';
+import { BookingStatus } from 'src/common/enum/booking-status.enum';
 
 @Controller('bookings')
 export class BookingsController {
@@ -14,8 +15,9 @@ export class BookingsController {
   }
 
   @Get()
-  searchCustomer(@Query('customerName') customerName?: string) {
-    return this.bookingsService.searchBooking(customerName);
+  searchCustomer( @Query('customerName') customerName?: string,
+    @Query('status') status?: BookingStatus,) {
+    return this.bookingsService.searchBooking(customerName, status);
   }
 
   @Get()

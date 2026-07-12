@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Booking } from './entities/booking.entity';
@@ -25,6 +25,19 @@ export class BookingsService {
     const bookingDate = new Date(dto.bookingDate);
     if (bookingDate < today) {
       throw new BadRequestException('Booking date cannot be in the past');
+    }
+    const duplicate = await this.bookingRepo.findOne({
+      where: {
+        serviceId: dto.serviceId,
+        bookingDate: dto.bookingDate,
+        bookingTime: dto.bookingTime,
+        status: BookingStatus.PENDING, // or CONFIRMED, see note below
+      },
+    });
+    if (duplicate) {
+      throw new ConflictException(
+        'A booking already exists for this service at the selected date and time',
+      );
     }
 
     const booking = this.bookingRepo.create(dto);
@@ -62,12 +75,16 @@ export class BookingsService {
     return this.bookingRepo.save(booking);
   }
 
-  searchBooking(customerName?: string) {
+  searchBooking(customerName?: string, status?: BookingStatus) {
+    const where: Record<string, any> = {};
+
     if (customerName) {
-      return this.bookingRepo.find({
-        where: { customerName: ILike(`%${customerName}%`) },
-      });
+      where.customerName = ILike(`%${customerName}%`);
     }
-    return this.bookingRepo.find();
+    if (status) {
+      where.status = status;
+    }
+
+    return this.bookingRepo.find({ where });
   }
 }

@@ -1,0 +1,11 @@
+name: book-nest-local
+values:
+  - key: baseUrl
+    value: ''
+  - key: accessToken
+    value: ''
+  - key: serviceId
+    value: ''
+  - key: bookingId
+    value: ''
+color: 120
